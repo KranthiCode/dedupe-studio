@@ -199,6 +199,11 @@ class StudioEngine:
         os.makedirs(tdir, exist_ok=True)
         f = os.path.basename(src)
         dest = os.path.join(tdir, f)
+
+        # Safety Check: If src and dest are the same, skip!
+        if os.path.abspath(src) == os.path.abspath(dest):
+            return True
+
         if os.path.exists(dest):
             base, ext = os.path.splitext(f)
             dest = os.path.join(tdir, f"{base}_{int(time.time())}{ext}")
